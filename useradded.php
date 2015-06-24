@@ -57,10 +57,17 @@ if(isset($_POST['submit'])){
 
     if(empty($data_missing)){
         
+<<<<<<< HEAD
         require_once('C:/xampp/mysqli_connect.php');
         
         $query = "INSERT INTO users (username, email,
         utype ,password) VALUES (?, ?, ?, ?)";
+=======
+        require_once('E:\xampp\htdocs\mysqli_connect.php');
+        
+        $query = "INSERT INTO users (NAME, EMAIL,
+        UTYPE ,PASSWORD) VALUES (?, ?, ?, ?)";
+>>>>>>> 7ab082627522a0f4531c8fc380ed5c2b5c7254bd
         
         $stmt = mysqli_prepare($dbc, $query);
 		

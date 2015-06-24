@@ -1,6 +1,10 @@
+<<<<<<< HEAD
 <?php
 include('lock.php');
 ?>
+=======
+
+>>>>>>> 7ab082627522a0f4531c8fc380ed5c2b5c7254bd
 <!DOCTYPE html>
 <html lang="en" class="no-js">
 	<head>
@@ -22,7 +26,11 @@ include('lock.php');
 	</div>
 	<div class="nav-bar">
 		<div class="profile_info">
+<<<<<<< HEAD
 			Hii Contractor <?php echo $login_session; ?>
+=======
+			Hi Contractor_Name
+>>>>>>> 7ab082627522a0f4531c8fc380ed5c2b5c7254bd
 		</div>
 		<div class="nav-button">
 			<nav class="main-nav">

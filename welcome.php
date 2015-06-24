@@ -1,6 +1,7 @@
 <?php
 include('lock.php');
 ?>
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en" class="no-js">
 	<head>
@@ -54,3 +55,8 @@ include('lock.php');
 
 </body>
 </html>
+=======
+<body>
+<h1>Welcome <?php echo $login_session; ?></h1>
+</body>
+>>>>>>> 7ab082627522a0f4531c8fc380ed5c2b5c7254bd
