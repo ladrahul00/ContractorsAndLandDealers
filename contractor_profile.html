@@ -1,0 +1,89 @@
+<?php
+include('lock.php');
+?><!DOCTYPE html>
+<html lang="en" class="no-js">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+		<link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" href="contractor/css/reset.css"> <!-- CSS reset -->
+		<link rel="stylesheet" href="contractor/css/style.css"> <!-- Gem style -->
+		<script src="contractor/js/modernizr.js"></script> <!-- Modernizr -->
+		<script type="text/javascript" src="contractor/js/jquery.cycle.all.js"></script> 
+
+		<title>Converge: Contractor's group</title>
+	</head>
+<body>
+	<header role="converge">
+	<div align="left"><a href="#0"><h1 class="toptitle">CONVERGE</h1></a></div>
+	</header>
+	<div class="nav-bar">
+		<nav class="main-nav">
+		<div class="greeting">
+			Hello contractor <?php echo $login_session; ?>
+		</div>
+		<div class="buttons">
+			<ul align="right">
+			<li><a class="cd-signin" href="#0">Log Out</a></li>
+			</ul>
+		</div>
+		</nav>
+	</div>	
+	<div class="one">
+		<div class="picDisp">
+			<img src="contractor/images/dp.jpg" height="220px" width="200px">
+		</div>
+		<div class="changeDP">
+			<input type="file" value="Choose Image">
+		</div>
+	</div>
+	<div class="two">
+		<div class="previous_work">
+			<label>Previous Work</label>
+			<div class="pwork">
+				<div class="baseImage">
+					<img src="contractor/images/img1.jpg" height="75px" width="90px">
+				</div>
+				<div class="imgDescription">
+				Hey man this is stock exchange
+				</div>
+			</div>
+		</div>
+		<div class="current_work">
+			<label>Current Work</label>
+			<div class="cwork">
+							<div class="baseImage">
+					<img src="contractor/images/img1.jpg" height="75px" width="90px">
+				</div>
+				<div class="imgDescription">
+				Hey man this is stock exchange
+				</div>
+			</div>
+		</div>
+	</div>
+	<footer class="footer-distributed">
+		<div class="footer-left">
+
+			<p class="footer-links" align="right">
+					<a href="#">Home</a>
+					·	
+					<a href="#">Advertising</a>
+					·
+					<a href="try.php">Contact</a>
+					·
+					<a href="aboutus.html">About us</a>
+
+			</p>
+
+			<p>Company Name &copy; 2015</p>
+		</div>
+
+		</footer>
+
+
+
+
+</body>
+</html>

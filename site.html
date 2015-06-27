@@ -1,0 +1,96 @@
+<?php
+session_start();
+include('search.html');
+?>
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+		<link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" href="site/css/reset.css"> <!-- CSS reset -->
+		<link rel="stylesheet" href="site/css/style.css"> <!-- Gem style -->
+		<script src="js/modernizr.js"></script> <!-- Modernizr -->
+		<script type="text/javascript" src="site/js/jquery.cycle.all.js"></script> 
+
+		<title>Converge: Contractor's group</title>
+		<script language="javascript">
+		$(document).ready(function(){
+			$('#slider1') .cycle({
+				fx: 'fade', //'scrollLeft,scrollDown,scrollRight,scrollUp',blindX, blindY, blindZ, cover, curtainX, curtainY, fade, fadeZoom, growX, growY, none, scrollUp,scrollDown,scrollLeft,scrollRight,scrollHorz,scrollVert,shuffle,slideX,slideY,toss,turnUp,turnDown,turnLeft,turnRight,uncover,ipe ,zoom
+				speed:  'slow', 
+				timeout: 2000 
+			});
+		});	
+		</script>
+		
+	</head>
+<body>
+	<header role="converge">
+	<div align="left"><a href="index.html"><h1 class="toptitle">CONVERGE</h1><!img src="logo.png" id="main-logo"></a></div>
+	</header>
+	<div class="nav-bar">
+		<nav class="main-nav">
+		<div class="greeting">
+			Hello 
+		</div>
+		<div class="buttons">
+			<ul align="right">
+			<li><a class="cd-signin" href="#0">Sign In</a></li>
+			<li><a class="cd-signup" href="#0">Sign Up</a></li>
+			</ul>
+		</div>
+		</nav>
+	</div>	
+	<div class="one">
+		<div class="sitename"><h1>Site: <?php echo $_SESSION['PROJECT_ID']; ?></h1></div>
+		<div class="imslide">
+			<div class="slider">
+			<ul id="slider1">
+			<li><img border="0" src="site/images/img1.jpg" width="625" height="345" alt="jQuery Image slider" title="jQuery Image slider" /></li>
+			<li><img border="0" src="site/images/img2.jpg" width="625" height="345" alt="jQuery Image slider" title="jQuery Image slider" /></li>
+			<li><img border="0" src="site/images/img3.jpg" width="625" height="345" alt="jQuery Image slider" title="jQuery Image slider" /></li>
+			<li><img border="0" src="site/images/img4.jpg" width="625" height="345" alt="jQuery Image slider" title="jQuery Image slider" /></li>
+			<li><img border="0" src="site/images/img5.jpg" width="625" height="345" alt="jQuery Image slider" title="jQuery Image slider" /></li>
+			<li><img border="0" src="site/images/img6.jpg" width="625" height="345" alt="jQuery Image slider" title="jQuery Image slider" /></li>
+			</ul>
+			</div>
+		</div>
+	</div>
+	<div class="two">
+		<div class="dtitle">Description</div>
+		<div class="message">
+		<?php echo $proj_id; ?>
+			Reasdhjsd ksdfnk jsbf isdhnf isdhnf lisdhfn bkafb xcjzvid is iosafrb  urew,m  iuasfg  lk,m hsild m kd ,x 
+			jdsbnf ,muiosf, misdd ,mljisd mjlsf js ,mlihsdf ,mj,sf msjbf ,sjbf 
+			nkm sdfsdf sd 
+			sd sd sd sd sd sd fsd fsd fsd fsd  fsd s sd sd 
+			sd fsd s s sdf sdf sdgdfghd gdf gdfhmnasdb  nm mnhfbsd jskjdf ikjs fsf sbnf su djkjs sd sdkj 
+			sdkj nksd  ksjd  kjsd ksjd sfh kjfuy sdnkbfgtgbjsd nskjfnmsuibf,mdvjerngneriot;klm,sdfnkkurjmeg
+			kjsdnb d skjsdkjf kjsd  ksd kjsd lkmhoisdf msd nsd fiksd sd u7sd sd sdp' nsdmn xznilsd sdnsdj valuesnd nsdbnsdmn sd fsjdf
+			sd sdmn sdhk nsdn sdfn ,sd
+		</div>
+	</div>
+	<div style="float:left; width:5%;">
+	</div>
+	<div class="Ask_button">
+		<input type="button" value="Ask_Question">
+	</div>
+	<div class="qanda">
+		<div class="queries">Queries :</div> 
+		<div class="question">
+			QUE: When the days are cold as the dark?
+		</div>
+		<div class="answer">
+			ANS: Are you creazy gsd fihdsf usd mh vhs sdusd sdhsd fsf sdfsdf sfdfsdf sdf sdffg si nmjkds nkjsdb usd nxjjs  
+			 sdj sdnsv n,s , xs ns ,snsns shdm ir vb uiier  vud dvuv isdnv.
+		 </div>
+		</div>
+	</div>
+
+
+</body>
+</html>
