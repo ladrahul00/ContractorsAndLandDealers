@@ -64,22 +64,22 @@
 
     if(isset($_POST["Submit"]))
       {
-		$c_username=$_POST['search'];
-		$_SESSION['c_username']=$c_username;
+		$c_email=$_POST['search'];
+		$_SESSION['c_email']=$c_email;
 		
-           if( empty($c_username))
+           if( empty($c_email))
               {
-                  echo "<script>alert( 'Please provide Contractor Username!' ); </script>";
+                  echo "<script>alert( 'Please provide Contractor's Valid Email ID!' ); </script>";
                }
 	       else
 	          {    
-		         $query=mysql_query("SELECT * FROM users WHERE USERNAME='$c_username'") or die("Invalid Query".mysql_error());
+		         $query=mysql_query("SELECT * FROM users WHERE EMAIL='$c_email'") or die("Invalid Query".mysql_error());
 		         $row=mysql_fetch_array($query);
-		         $login_session=$row['USERNAME'];
+		         $login_email=$row['EMAIL'];
 		         if(mysql_num_rows($query)!=0)
 				 {
-		           if(isset($login_session))
-			          header("Location:Display_contractor_info.php");
+		           if(isset($login_email))
+			          header("Location:admin_contractor_profile.php");
 				 }
 				 else
 					 echo '<script> alert("Invalid Contractor Email Entered. Enter Again");</script>';

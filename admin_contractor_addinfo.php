@@ -16,7 +16,7 @@
 	</head>
 <body>
 	<header role="converge">
-	<div align="left"><a href="admin_home.html"><h1 class="toptitle">CONVERGE</h1><!img src="logo.png" id="main-logo"></a></div>
+	<div align="left"><a href="admin_home.php"><h1 class="toptitle">CONVERGE</h1><!img src="logo.png" id="main-logo"></a></div>
 	</header>
 		<div class="nav-bar">
 		<nav class="main-nav">
@@ -114,12 +114,12 @@
 	 </form>
 	 
 	</div>
-	<!--
-		<footer class="footer-distributed">
+
+	<footer class="footer-distributed">
 		<div class="footer-left">
 
 			<p class="footer-links" align="right">
-					<a href="#">Home</a>
+					<a href="index.html">Home</a>
 					·	
 					<a href="#">Advertising</a>
 					·
@@ -133,7 +133,7 @@
 		</div>
 
 		</footer>
--->
+
 </body>
 <?php
 
@@ -148,7 +148,17 @@
 		$site_status=$_POST['site_status'];
 		$DOS=$_POST['DOS'];
 		$DOF=$_POST['DOF'];
-		$c_email=$_POST['c_email'];
+		if($_POST['c_email'] != "" )
+		{  $var=$_POST['c_email'];
+			$res=mysql_query("SELECT * FROM users WHERE EMAIL='$var' AND UTYPE='C' ") or die(mysql_error());
+			if(mysql_num_rows($res)==1) 
+				{
+					  $c_email=$_POST['c_email'];
+				}
+			else
+			 echo'<script> alert("Provided conntractor email does not exists"); window.location.href="admin_home.html";</script>';
+		}
+		//$c_email=$_POST['c_email'];
 		$bhk=$_POST['bhk'];
 		$locality=$_POST['locality'];
 		if( empty($site_id) || empty($site_name)|| empty($site_status)|| empty($site_description) || empty($DOS) || empty($DOF) || empty($c_email) || empty($bhk) || empty($locality))
@@ -160,10 +170,10 @@
 		$q=mysql_query("INSERT INTO project (PROJECT_ID,P_NAME,BHK,P_DESCRIPTION,START,FINISH,LOCALITY,STATUS,C_EMAIL)VALUES('$site_id','$site_name','$bhk','$site_description','$DOS','$DOF','$locality','$site_status','$c_email')") or die ("Invalid Query".mysql_error());
 		if(!$q)
 		{
-			echo "<script>alert('Failed to add Site Information!');//window.location.href='admin_home.html';</script>";
+			echo "<script>alert('Failed to add Site Information!');//window.location.href='admin_home.php';</script>";
 		}
 		else
-			echo"<script>alert('Site Information Added Successfully!');//window.location.href='admin_home.html';</script>";
+			echo"<script>alert('Site Information Added Successfully!');//window.location.href='admin_home.php';</script>";
            
 		}
 		$name=addslashes($_FILES['file1']['name']);

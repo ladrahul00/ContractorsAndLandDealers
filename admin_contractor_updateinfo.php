@@ -18,7 +18,7 @@
 	</head>
 <body>
 	<header role="converge">
-	<div align="left"><a href="admin_home.html"><h1 class="toptitle">CONVERGE</h1><!img src="logo.png" id="main-logo"></a></div>
+	<div align="left"><a href="admin_home.php"><h1 class="toptitle">CONVERGE</h1><!img src="logo.png" id="main-logo"></a></div>
 	</header>
 		<div class="nav-bar">
 		<nav class="main-nav">
@@ -34,12 +34,21 @@
 	</div>	
 	
 	<div id="box">
+	   <br><br>
 		<div class="search-bar" align="center">
 		Search For site :: 
 		<form action=""  method="POST" class="search-form frame inbtn rlarge">
 			<input type="text" name="search" class="search-input" placeholder="Search by site name.." />
-			<input class="search-btn" type="submit" name="Submit" value="Go" />        
+			<input class="search-btn" type="submit" name="sitesearch" value="Go" />        
 		</form>
+		
+		<!--Search for contractor :: 
+		
+		<form action=""  method="POST" class="search-form frame inbtn rlarge">
+			<input type="text" name="search" class="search-input" placeholder="Search for Contractor .." />
+			<input class="search-btn" type="submit" name="contrasearch" value="Go" />        
+		</form> -->
+		
 		</div>
 		<div style="margin-top:33%">
 		</div>
@@ -66,7 +75,7 @@
   session_start();
  
 
-    if(isset($_POST["Submit"]))
+    if(isset($_POST["sitesearch"]))
       {
 		$site_name=$_POST['search'];
 		$_SESSION['site_name']=$site_name;
@@ -89,6 +98,32 @@
 					 echo '<script> alert("Invalid Site Name Enter Again");</script>';
 	           }
        }
+	   
+	   
+   /* if(isset($_POST["contrasearch"]))
+      {
+		$c_email=$_POST['search'];
+		$_SESSION['c_email']=$c_email;
+		
+           if( empty($c_email))
+              {
+                  echo "<script>alert( 'Please provide Contractor's Valid Email ID!' ); </script>";
+               }
+	       else
+	          {    
+		         $query=mysql_query("SELECT * FROM users WHERE EMAIL='$c_email'") or die("Invalid Query".mysql_error());
+		         $row=mysql_fetch_array($query);
+		         $login_email=$row['EMAIL'];
+		         if(mysql_num_rows($query)!=0)
+				 {
+		           if(isset($login_email))
+			          header("Location:admin_contractor_profile.php");
+				 }
+				 else
+					 echo '<script> alert("Invalid Contractor Email Entered. Enter Again");</script>';
+	           }
+       }
+*/
 
  ?>
  </html>

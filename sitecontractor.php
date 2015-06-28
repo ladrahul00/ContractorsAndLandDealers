@@ -46,7 +46,7 @@ $resultask=mysqli_query($dbc,"SELECT * FROM Q_A WHERE PROJECT_ID='$site_id'");
 	</head>
 <body>
 	<header role="converge">
-	<div align="left"><a href="index.html"><h1 class="toptitle">CONVERGE</h1><!img src="logo.png" id="main-logo"></a></div>
+	<div align="left"><a href="contractor_profile.php"><h1 class="toptitle">CONVERGE</h1><!img src="logo.png" id="main-logo"></a></div>
 	</header>
 	
 		<div class="nav-bar">
@@ -67,12 +67,9 @@ $resultask=mysqli_query($dbc,"SELECT * FROM Q_A WHERE PROJECT_ID='$site_id'");
 		<div class="imslide">
 			<div class="slider">
 			<ul id="slider1">
-			<li><img border="0" src="site/images/img1.jpg"  alt="jQuery Image slider" title="jQuery Image slider" /></li>
-			<li><img border="0" src="site/images/img2.jpg"  alt="jQuery Image slider" title="jQuery Image slider" /></li>
-			<li><img border="0" src="site/images/img3.jpg"  alt="jQuery Image slider" title="jQuery Image slider" /></li>
-			<li><img border="0" src="site/images/img4.jpg"  alt="jQuery Image slider" title="jQuery Image slider" /></li>
-			<li><img border="0" src="site/images/img5.jpg"  alt="jQuery Image slider" title="jQuery Image slider" /></li>
-			<li><img border="0" src="site/images/img6.jpg"  alt="jQuery Image slider" title="jQuery Image slider" /></li>
+			<li><?php echo '<img src="data:image;base64,'.$row["IMAGE1"].'">'; ?></li>
+			<li><?php echo '<img src="data:image;base64,'.$row["IMAGE2"].'">'; ?></li>
+			<li><?php echo '<img src="data:image;base64,'.$row["IMAGE3"].'">'; ?></li>
 			</ul>
 			</div>
 		</div>

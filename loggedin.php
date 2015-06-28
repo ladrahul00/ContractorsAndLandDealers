@@ -33,7 +33,7 @@ if($result->num_rows>0)
 	if(strcmp($email,"admin@converge.com")==0)
 	{	
 		echo $email;
-		header("Location:admin_home.html");
+		header("Location:admin_home.php");
 	}
 	else
 	{

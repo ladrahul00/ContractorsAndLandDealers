@@ -33,7 +33,7 @@ include('lock.php');
 	</head>
 	<body>
 	<header role="converge">
-	<div align="left"><a href="#0"><h1 class="toptitle">CONVERGE</h1></a></div>
+	<div align="left"><a href="contractor_profile.php"><h1 class="toptitle">CONVERGE</h1></a></div>
 	</header>
 	<div class="nav-bar">
 		<nav class="main-nav">
@@ -41,7 +41,7 @@ include('lock.php');
 			Hello contractor <?php echo $login_session; ?>
 		</div>
 		<div class="buttons">
-			<ul align="right">
+			<ul>
 			<li><a class="cd-signin" href="index.html">Log Out</a></li>
 			</ul>
 		</div>
@@ -51,17 +51,20 @@ include('lock.php');
 	<div class="one">
 	</div>
 	<div class="two">
-	<label>Completed :: </label>
-	<?php   
+	<label>Number of projects completed:   
+	<?php   echo"$result1->num_rows";
 		while($row1=$result1->fetch_assoc())
 		{ 
 			$baby=$row1['PROJECT_ID'];
 		echo '<a href="sitecontractor.php?baby=',urlencode($baby),'">';
 		?>
+		</label>
 		<div class="completed_work">
 			<div class="pwork">
 				<div class="baseImage">
-				<img src="contractor/images/img1.jpg"">
+				<?php
+					echo '<img src="data:image;base64,'.$row1["IMAGE1"].'">';
+				?>
 				</div>
 				<div class="imgDescription">
 						<div class="sitelabel">
@@ -83,17 +86,21 @@ include('lock.php');
 		?>  
 	</div>
 	<div class="two">
-	<label>Ongoing :: </label>
+	<label>Number of Ongoing Projects: 
 	<?php   
+		echo "$result2->num_rows"; 
 		while($row2=$result2->fetch_assoc())
-		{ 
+		{
 		$baby=$row2['PROJECT_ID'];
 		echo '<a href="sitecontractor.php?baby=',urlencode($baby),'">';
 		?>
+		</label>
 		<div class="previous_work">
 			<div class="pwork">
 				<div class="baseImage">
-				<img src="contractor/images/img1.jpg" height="75px" width="90px">
+					<?php
+						echo '<img src="data:image;base64,'.$row1["IMAGE1"].'">';
+					?>
 				</div>
 				<div class="imgDescription">
 					<div class="sitelabel">

@@ -72,6 +72,7 @@ if(isset($_POST['submit'])){
         $affected_rows = mysqli_stmt_affected_rows($stmt);
         
         if($affected_rows == 1){
+			echo "<script>alert('User Added')</script>";
             header("Location:index.html");	 
             mysqli_stmt_close($stmt);
             

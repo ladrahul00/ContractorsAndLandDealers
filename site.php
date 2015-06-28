@@ -1,8 +1,6 @@
 <?php
-//session_start();
+
 include('lock.php');
-//include('searchresult.php');
-//include('contractor_profile.php');
 
 $site_id=$_GET['baby'];
 $ses_sql=mysqli_query($dbc,"SELECT * FROM project WHERE PROJECT_ID='$site_id'");
@@ -14,6 +12,7 @@ $dos=$row['START'];
 $bhk=$row['BHK'];
 $cstatus=$row['STATUS'];
 $cemail=$row['C_EMAIL'];
+$_SESSION['site_id']=$row['PROJECT_ID'];
 $resultask=mysqli_query($dbc,"SELECT * FROM Q_A WHERE PROJECT_ID='$site_id'");
 
 ?>
@@ -66,12 +65,9 @@ $resultask=mysqli_query($dbc,"SELECT * FROM Q_A WHERE PROJECT_ID='$site_id'");
 		<div class="imslide">
 			<div class="slider">
 			<ul id="slider1">
-			<li><img border="0" src="site/images/img1.jpg"  alt="jQuery Image slider" title="jQuery Image slider" /></li>
-			<li><img border="0" src="site/images/img2.jpg"  alt="jQuery Image slider" title="jQuery Image slider" /></li>
-			<li><img border="0" src="site/images/img3.jpg"  alt="jQuery Image slider" title="jQuery Image slider" /></li>
-			<li><img border="0" src="site/images/img4.jpg"  alt="jQuery Image slider" title="jQuery Image slider" /></li>
-			<li><img border="0" src="site/images/img5.jpg"  alt="jQuery Image slider" title="jQuery Image slider" /></li>
-			<li><img border="0" src="site/images/img6.jpg"  alt="jQuery Image slider" title="jQuery Image slider" /></li>
+			<li><?php echo '<img src="data:image;base64,'.$row["IMAGE1"].'">'; ?></li>
+			<li><?php echo '<img src="data:image;base64,'.$row["IMAGE2"].'">'; ?></li>
+			<li><?php echo '<img src="data:image;base64,'.$row["IMAGE3"].'">'; ?></li>
 			</ul>
 			</div>
 		</div>
@@ -103,7 +99,7 @@ $resultask=mysqli_query($dbc,"SELECT * FROM Q_A WHERE PROJECT_ID='$site_id'");
 		}
 		?>
 		<div class="Ask_button">
-		<form action="<?php echo $_SERVER['PHP_SELF'];?>"  method="post" enctype="multipart/form-data">
+		<form action=""  method="post" enctype="multipart/form-data">
 		<input type="text" class="writeque" name="question">
 		<input type="submit" class="askone" value="Ask_Question" name="askbutton">
 		</form>
@@ -115,25 +111,21 @@ $resultask=mysqli_query($dbc,"SELECT * FROM Q_A WHERE PROJECT_ID='$site_id'");
 
 <?php
 
-
-	//echo $site_id;
-	//echo $cemail;
 	if(isset($_POST['askbutton'])){
-		//require_once('mysqli_connect.php');
-		$site_id="asshole";
 		$que=$_POST['question'];
 		$ans="";
-		//$q="INSERT INTO Q_A (PROJECT_ID, QUESTION, C_EMAIL) VALUES ('$site_id','$que','$cemail')" or die ("Invalid Query".mysql_error());
-		$q="INSERT INTO q_a (PROJECT_ID, QUESTION, ANSWER, C_EMAIL) VALUES (?, ?, ?, ?)";
+		$q="INSERT INTO q_a (PROJECT_ID, QUESTION, ANSWER, U_EMAIL) VALUES (?, ?, ?, ?)"or die ("Invalid Query".mysql_error());
 		$stmt=mysqli_prepare($dbc,$q);
-		echo $site_id;
-		mysqli_stmt_bind_param($stmt, "ssss", $site_id, $que, $ans, $login_email);
-		mysqli_stmt_execute($stmt);
+		mysqli_stmt_bind_param($stmt, "isss", $siteid, $que, $ans, $login_email);
+		$siteid=$_SESSION['site_id'];
+		mysqli_stmt_execute($stmt);	
 		
-		
+	
+
 		$ar = mysqli_stmt_affected_rows($stmt);
 		if($ar){
 			echo "<script>alert('question entered ')</script>";
+	
 		}
 		else{
 			echo "<script>alert('Alert question Not entered ')</script>";

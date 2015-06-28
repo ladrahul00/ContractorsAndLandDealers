@@ -106,11 +106,16 @@ header[role=converge] #main-logo{
 	color:white;
 	font-family:Andalus;
 	font-size:30px;
+	width:30%;
 }
 
 .buttons{
-	margin-left:780px;
+	width:70%;
 	float:left;
+}
+
+.buttons a{
+	margin-left: 700px;;
 }
 
 .picDisp{
@@ -165,6 +170,12 @@ float:left;
 	margin-bottom:5px;
 }
 
+.sitelabel{
+	font-family:calibri;
+	font-size:20px;	
+	
+}
+
 label{
 	padding-left:20px;
 	color:black;
@@ -181,6 +192,11 @@ label{
 padding:10px;
 float:left;
 width:20%;
+}
+
+.baseImage img{
+	width:110px;
+	height:120px;
 }
 
 .imgDescription{

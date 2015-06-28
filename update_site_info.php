@@ -11,8 +11,8 @@
 		<script src="js/modernizr.js"></script> <!-- Modernizr -->
 		<script type="text/javascript" src="admin_add_project/js/jquery.cycle.all.js"></script> 
 		<title>Converge: Contractor's group</title>
+		<!--<link rel="stylesheet" href="admin_add_project/css/site_info_css.css">-->
 		<link rel="stylesheet" href="admin_add_project/css/site_info_css.css">
-		
 	</head>
 <body>
 <?php
@@ -20,7 +20,7 @@ session_start();
 $site_name=$_SESSION['site_name'];
 ?>
 	<header role="converge">
-	<div align="left"><a href="admin_home.html"><h1 class="toptitle">CONVERGE</h1><!img src="logo.png" id="main-logo"></a></div>
+	<div align="left"><a href="admin_home.php"><h1 class="toptitle">CONVERGE</h1><!img src="logo.png" id="main-logo"></a></div>
 	</header>
 		<div class="nav-bar">
 		<nav class="main-nav">
@@ -34,14 +34,15 @@ $site_name=$_SESSION['site_name'];
 		</div>
 		</nav>
 	</div>	
-	<div id="box">
+	<div class="box">
 	<?php
 	 echo '<h1 align="center"> Update Information About  ';
 	 echo $site_name;
 	 echo ' </h1><br><br>';
 	 ?>
-    <form method="POST">
-	<table align="center" cellpadding="5" cellspacing="10" >
+    <!--<form method="POST">-->
+	<form action="<?php echo $_SERVER['PHP_SELF'];?>"  method="post" enctype="multipart/form-data">
+	<table align="center" >
 	<tr><th>
 	 Site Status  :&nbsp&nbsp</th>
 	 <th>
@@ -100,8 +101,16 @@ $site_name=$_SESSION['site_name'];
 	  <tr><th>
 	  Contractor Email :&nbsp&nbsp</th>
 	  <th><input type="email" name="c_email"><br><br></th></tr>
-	  <tr><th>Site Image :&nbsp&nbsp</th>
-	 <th><input type="file" name="file"><br><br></th></tr>
+	  <tr><th>Site Image 1 :&nbsp&nbsp</th>
+	 <th><input type="file" name="file1"><br><br></th></tr>
+	 <tr><th></th>
+	 
+	 <tr><th>Site Image 2 :&nbsp&nbsp</th>
+	 <th><input type="file" name="file2"><br><br></th></tr>
+	 <tr><th></th>
+	 
+	 <tr><th>Site Image 3 :&nbsp&nbsp</th>
+	 <th><input type="file" name="file3"><br><br></th></tr>
 	 <tr><th></th>
 	<th> <input type="Submit" name="Submit" value="Submit" ></th></tr>
 	 </table>
@@ -111,7 +120,7 @@ $site_name=$_SESSION['site_name'];
 		<div class="footer-left">
 
 			<p class="footer-links" align="right">
-					<a href="#">Home</a>
+					<a href="index.html">Home</a>
 					·	
 					<a href="#">Advertising</a>
 					·
@@ -135,11 +144,11 @@ $site_name=$_SESSION['site_name'];
   if($_SERVER["REQUEST_METHOD"]=="POST")
   {
     if(isset($_POST["Submit"]))
-     {
+    {
    
-   $query=mysql_query("Select * from project where P_NAME='$site_name'");
+    $query=mysql_query("Select * from project where P_NAME='$site_name'");
 	while($row=mysql_fetch_array($query))
-	{
+		{
 	    $site_description=$row['P_DESCRIPTION'];
 		$site_status=$row['STATUS'];
 		$DOS=$row['START'];
@@ -147,7 +156,7 @@ $site_name=$_SESSION['site_name'];
   		$c_email=$row['C_EMAIL'];
         $bhk=$row['BHK'];
         $locality=$row['LOCALITY'];
-	}
+		}
     if($_POST['site_description'] != "")	
        $site_description=$_POST['site_description'];
 	if($_POST['site_status'] != "")	
@@ -164,25 +173,84 @@ $site_name=$_SESSION['site_name'];
 					  $c_email=$_POST['c_email'];
 				}
 			else
-			 echo'<script> alert("Provided conntractor email does not exists"); window.location.href="admin_home.html";</script>';
+			 echo'<script> alert("Provided conntractor email does not exists"); window.location.href="admin_home.php";</script>';
 		}
        
-   if($_POST['bhk'] != "")	  
+    if($_POST['bhk'] != "")	  
        $bhk=$_POST['bhk'];
-   if($_POST['locality'] != "")	
+    if($_POST['locality'] != "")	
       $locality=$_POST['locality'];	  
 	  
     $q=mysql_query("UPDATE project SET BHK={$bhk},P_DESCRIPTION='{$site_description}',START='{$DOS}',FINISH='{$DOF}',LOCALITY='{$locality}',STATUS='{$site_status}',C_EMAIL='{$c_email}' WHERE P_NAME='{$site_name}'") or die("Invalid query".mysql_error());
-                 if(!$q && mysql_num_rows($res)!=1)
-                    {
-						echo "<script>alert('Failed to Update Site Information!');window.location.href='admin_home.html';</script>";
-                    }
-					else if($q && mysql_num_rows($res)== 1)
-						echo "<script>alert('Site Information Updated Successfully!');window.location.href='admin_home.html';</script>";
+    if(!$q )
+				 echo "<script>alert('Site Information Could not be updated!');</script>";
+     //   echo "<script>alert('Failed to Update Site Information!');window.location.href='admin_home.php';</script>";
+    else if(mysql_num_rows($res)==1)
+		 echo "<script>alert('Site Information Updated Successfully!');</script>";
+//	    echo "<script>alert('Site Information Updated Successfully!');window.location.href='admin_home.php';</script>";
            
+	//jayti
+		$name=addslashes($_FILES['file1']['name']);
+		$image=addslashes($_FILES['file1']['tmp_name']);
+		$image=file_get_contents($image);
+		$image=base64_encode($image);
+//		echo $image;
+		$target_path = "images/".$name;
+		$up=move_uploaded_file($_FILES['file1']['tmp_name'],$target_path);
+		echo $up;
+		$q2=mysql_query("UPDATE project SET IMAGE1='{$image}' WHERE P_NAME='{$site_name}'") or die (mysql_error());	
+	//	echo $q;
+		echo"<br/><br/><br/><br/><br/><br/><br/><br/>";
+		if(!$up) 
+		{
+			echo'<script> alert("image not uploaded!");</script>';
+		}
+		if(!$q2)
+		{
+			echo'<script> alert("Image not stored!");</script>';
+		}
+		$name=addslashes($_FILES['file2']['name']);
+		$image=addslashes($_FILES['file2']['tmp_name']);
+		$image=file_get_contents($image);
+		$image=base64_encode($image);
+	//	echo $image;
+		$target_path = "images/".$name;
+		$up=move_uploaded_file($_FILES['file2']['tmp_name'],$target_path);
+		//echo $up;
+		$q2=mysql_query("UPDATE project SET IMAGE2='{$image}'  WHERE P_NAME='{$site_name}'") or die (mysql_error());	
+		//echo $q2;
+		//echo"<br/><br/><br/><br/><br/><br/><br/><br/>";
+		if(!$up) 
+		{
+			echo'<script> alert("image not uploaded!");</script>';
+		}
+		if(!$q2)
+		{
+			echo'<script> alert("Image not stored!");</script>';
 		}
 		
-    }
+		$name=addslashes($_FILES['file3']['name']);
+		$image=addslashes($_FILES['file3']['tmp_name']);
+		$image=file_get_contents($image);
+		$image=base64_encode($image);
+		//echo $image;
+		$target_path = "images/".$name;
+		$up=move_uploaded_file($_FILES['file3']['tmp_name'],$target_path);
+		//echo $up;
+		$q2=mysql_query("UPDATE project SET IMAGE3='{$image}' WHERE P_NAME='{$site_name}'") or die (mysql_error());
+		//echo"<br/><br/><br/><br/><br/><br/><br/><br/>";
+		if(!$up) 
+		{
+			echo'<script> alert("image not uploaded!");</script>';
+		}
+		if(!$q2)
+		{
+			echo'<script> alert("Image not stored!");</script>';
+		}
+	}   
+	}
+		
+ 
 	
   
 ?>

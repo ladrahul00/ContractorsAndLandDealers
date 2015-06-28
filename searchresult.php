@@ -75,7 +75,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 		<div class="previous_work">
 			<div class="pwork">
 				<div class="baseImage">
-					<img src="contractor/images/img1.jpg" height="130px" width="160px">
+				<?php
+					echo '<img src="data:image;base64,'.$row["IMAGE1"].'">';
+				?>
 				</div>
 				<div class="imgDescription">
 						<div class="sitelabel"><?php echo $row['P_NAME']  ?></div><br />
