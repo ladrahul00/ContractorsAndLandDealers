@@ -9,9 +9,9 @@ include('lock.php');
 	$status1 = "completed";
 	$status2 = "current";
 
-	$q = "SELECT * FROM PROJECT where C_EMAIL='".$login_email."' AND STATUS='".$status1."'";
+	$q = "SELECT * FROM PROJECT where C_EMAIL='".$_SESSION['email']."' AND STATUS='".$status1."'";
 	$result1 = mysqli_query($dbc,$q); 
-	$r = "SELECT * FROM PROJECT where C_EMAIL='".$login_email."' AND STATUS='".$status2."'";
+	$r = "SELECT * FROM PROJECT where C_EMAIL='".$_SESSION['email']."' AND STATUS='".$status2."'";
 	$result2 = mysqli_query($dbc,$r);
 
 ?>
@@ -24,10 +24,10 @@ include('lock.php');
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 
 		<link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
-		<link rel="stylesheet" href="contractor/css/reset.css"> <!-- CSS reset -->
-		<link rel="stylesheet" href="contractor/css/style.css"> <!-- Gem style -->
-		<script src="contractor/js/modernizr.js"></script> <!-- Modernizr -->
-		<script type="text/javascript" src="contractor/js/jquery.cycle.all.js"></script> 
+		<link rel="stylesheet" href="contractor_profile/css/reset.css"> <!-- CSS reset -->
+		<link rel="stylesheet" href="contractor_profile/css/style.css"> <!-- Gem style -->
+		<script src="contractor_profile/js/modernizr.js"></script> <!-- Modernizr -->
+		<script type="text/javascript" src="contractor_profile/js/jquery.cycle.all.js"></script> 
 
 		<title>Converge: Contractor's group</title>
 	</head>
@@ -38,11 +38,11 @@ include('lock.php');
 	<div class="nav-bar">
 		<nav class="main-nav">
 		<div class="greeting">
-			Hello contractor <?php echo $login_session; ?>
+			Hello contractor <?php echo $_SESSION['USERNAME']; ?>
 		</div>
 		<div class="buttons">
 			<ul>
-			<li><a class="cd-signin" href="index.html">Log Out</a></li>
+			<li><a class="cd-signin" href="logout.php">Log Out</a></li>
 			</ul>
 		</div>
 		</nav>
@@ -55,8 +55,8 @@ include('lock.php');
 	<?php   echo"$result1->num_rows";
 		while($row1=$result1->fetch_assoc())
 		{ 
-			$baby=$row1['PROJECT_ID'];
-		echo '<a href="sitecontractor.php?baby=',urlencode($baby),'">';
+			$pid=$row1['PROJECT_ID'];
+		echo '<a href="sitecontractor.php?pid=',urlencode($pid),'">';
 		?>
 		</label>
 		<div class="completed_work">
@@ -91,8 +91,8 @@ include('lock.php');
 		echo "$result2->num_rows"; 
 		while($row2=$result2->fetch_assoc())
 		{
-		$baby=$row2['PROJECT_ID'];
-		echo '<a href="sitecontractor.php?baby=',urlencode($baby),'">';
+		$pid=$row2['PROJECT_ID'];
+		echo '<a href="sitecontractor.php?pid=',urlencode($pid),'">';
 		?>
 		</label>
 		<div class="previous_work">

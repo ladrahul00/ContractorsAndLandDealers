@@ -6,12 +6,12 @@
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 
 		<link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
-		<link rel="stylesheet" href="admin_add_project/css/reset.css"> <!-- CSS reset -->
-		<link rel="stylesheet" href="admin_add_project/css/style.css"> <!-- Gem style -->
-		<link rel="stylesheet" href="admin_add_project/css/site_info_css.css">
-		<script src="js/modernizr.js"></script> <!-- Modernizr -->
+		<link rel="stylesheet" href="search_contractor/css/reset.css"> <!-- CSS reset -->
+		<link rel="stylesheet" href="search_contractor/css/style.css"> <!-- Gem style -->
+		<link rel="stylesheet" href="search_contractor/css/site_info_css.css">
+		<script src="search_contractor/js/modernizr.js"></script> <!-- Modernizr -->
 	    <!--<link rel="stylesheet" href="css/style.css"> <!-- CSS reset -->
-		<script type="text/javascript" src="admin_add_project/js/jquery.cycle.all.js"></script> 
+		<script type="text/javascript" src="search_contractor/js/jquery.cycle.all.js"></script> 
 		<title>Converge: Contractor's group</title>
 		
 		
@@ -27,7 +27,7 @@
 		</div>
 		<div class="buttons">
 			<ul align="right">
-			<li><a class="cd-signin" href="index.html">Logout</a></li>
+			<li><a class="cd-signin" href="logout.php">Logout</a></li>
 			</ul>
 		</div>
 		</nav>
@@ -75,10 +75,10 @@
 	          {    
 		         $query=mysql_query("SELECT * FROM users WHERE EMAIL='$c_email'") or die("Invalid Query".mysql_error());
 		         $row=mysql_fetch_array($query);
-		         $login_email=$row['EMAIL'];
+		         $_SESSION['email']=$row['EMAIL'];
 		         if(mysql_num_rows($query)!=0)
 				 {
-		           if(isset($login_email))
+		           if(isset($_SESSION['email']))
 			          header("Location:admin_contractor_profile.php");
 				 }
 				 else

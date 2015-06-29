@@ -23,10 +23,10 @@ include('lock.php');
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 
 		<link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
-		<link rel="stylesheet" href="contractor/css/reset.css"> <!-- CSS reset -->
-		<link rel="stylesheet" href="contractor/css/style.css"> <!-- Gem style -->
-		<script src="contractor/js/modernizr.js"></script> <!-- Modernizr -->
-		<script type="text/javascript" src="contractor/js/jquery.cycle.all.js"></script> 
+		<link rel="stylesheet" href="admin_contractor_profile/css/reset.css"> <!-- CSS reset -->
+		<link rel="stylesheet" href="admin_contractor_profile/css/style.css"> <!-- Gem style -->
+		<script src="admin_contractor_profile/js/modernizr.js"></script> <!-- Modernizr -->
+		<script type="text/javascript" src="admin_contractor_profile/js/jquery.cycle.all.js"></script> 
 
 		<title>Converge: Contractor's group</title>
 	</head>
@@ -37,11 +37,11 @@ include('lock.php');
 	<div class="nav-bar">
 		<nav class="main-nav">
 		<div class="greeting">
-			Hello <?php echo $login_session; ?>
+			Hello <?php echo $_SESSION['USERNAME']; ?>
 		</div>
 		<div class="buttons">
 			<ul align="right">
-			<li><a class="cd-signin" href="index.html">Log Out</a></li>
+			<li><a class="cd-signin" href="logout.php">Log Out</a></li>
 			</ul>
 		</div>
 		</nav>

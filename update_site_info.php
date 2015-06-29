@@ -6,13 +6,13 @@
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 
 		<link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
-		<link rel="stylesheet" href="admin_add_project/css/reset.css"> <!-- CSS reset -->
-		<link rel="stylesheet" href="admin_add_project/css/style.css"> <!-- Gem style -->
+		<link rel="stylesheet" href="update_site_info/css/reset.css"> <!-- CSS reset -->
+		<link rel="stylesheet" href="update_site_info/css/style.css"> <!-- Gem style -->
 		<script src="js/modernizr.js"></script> <!-- Modernizr -->
-		<script type="text/javascript" src="admin_add_project/js/jquery.cycle.all.js"></script> 
+		<script type="text/javascript" src="update_site_info/js/jquery.cycle.all.js"></script> 
 		<title>Converge: Contractor's group</title>
-		<!--<link rel="stylesheet" href="admin_add_project/css/site_info_css.css">-->
-		<link rel="stylesheet" href="admin_add_project/css/site_info_css.css">
+		<!--<link rel="stylesheet" href="update_site_info/css/site_info_css.css">-->
+		<link rel="stylesheet" href="update_site_info/css/site_info_css.css">
 	</head>
 <body>
 <?php
@@ -29,7 +29,7 @@ $site_name=$_SESSION['site_name'];
 		</div>
 		<div class="buttons">
 			<ul align="right">
-			<li><a class="cd-signin" href="index.html">Logout</a></li>
+			<li><a class="cd-signin" href="logout.php">Logout</a></li>
 			</ul>
 		</div>
 		</nav>

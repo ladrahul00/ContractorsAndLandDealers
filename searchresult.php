@@ -1,31 +1,22 @@
 ﻿<?php
 
 include('lock.php');
-// $dbc will contain a resource link to the database
-// @ keeps the error from showing in the browser
-
-//session_start();
-
+echo "<script>window.onunload = function() { void (0) }</script>";
 if($_SERVER["REQUEST_METHOD"] == "POST")
 {
 	$key = $_POST['local_name'];
 	$bhk = $_POST['nbhk'];
-	//echo $key;
 
- if (isset($_POST['go'])) 
- { 
-	$q = "SELECT * FROM project where LOCALITY='".$key."' AND BHK='".$bhk."'";
-	$result = mysqli_query($dbc,$q); 
-	//$row=mysqli_fetch_array($result,MYSQLI_ASSOC);
-	//$n=$result->num_rows;
-	//$_SESSION['PROJECT_ID']=$row['PROJECT_ID'];
-	//echo $_SESSION['PROJECT_ID'];
-	//$_SESSION['DESCRIPTION']=$row['P_DESCRIPTION'];
-	//header("Location:searchresult.php");
-
-}
+	if (isset($_POST['go'])) 
+	{ 
+		$q = "SELECT * FROM project where LOCALITY='".$key."' AND BHK='".$bhk."'";
+		$result = mysqli_query($dbc,$q); 
+	}
 	else
 		echo "Not set";
+	if(empty($_SESSION['USERNAME'])){
+		$_SESSION['USERNAME']="GUEST";
+	}
 }
 ?>
 <html lang="en" class="no-js">
@@ -44,33 +35,34 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 	</head>
 <body>
 	<header role="converge">
-	<div align="left"><a href="index.html"><h1 class="toptitle">CONVERGE</h1></a></div>
+	<div align="left"><a href="searchresult.php"><h1 class="toptitle">CONVERGE</h1></a></div>
 	</header>
 	<div class="nav-bar">
 		<nav class="main-nav">
 				<div class="greeting">
-			Hello <?php echo $login_session; ?>
+			Hello <?php echo $_SESSION['USERNAME']; ?>
 		</div>
+		<?php
+				if($_SESSION['USERNAME']!="GUEST"){
+		?>
 		<div class="buttons">
 			<ul align="right">
-			<li><a class="cd-signin" href="index.html">Log Out</a></li>
+			<li><a class="cd-signin" href="logout.php">Log Out</a></li>
 			</ul>
 		</div>
+				<?php
+					}
+				?>
 		</nav>
 	</div>	
 	<div class="one"></div>
 	<div class="two">
-	<label>Search Results :: </label>
+	<label>Search Results :: <?php echo $result->num_rows; ?></label>
 	<?php   
-//		session_start();
-		//for($x=0;$x<$n;$x++)
 		while($row=$result->fetch_assoc())
 		{ 
-		//$_SESSION['PROJECT_ID']= $row['PROJECT_ID'];
-		//$_SESSION['P_NAME']= $row['P_NAME'];
-		//header("Location:site.php");
-		$baby=$row['PROJECT_ID'];
-		echo '<a href="site.php?baby=',urlencode($baby),'">';
+		$pid=$row['PROJECT_ID'];
+		echo '<a href="site.php?pid=',urlencode($pid),'">';
 		?>
 		<div class="previous_work">
 			<div class="pwork">

@@ -6,12 +6,22 @@
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 
 		<link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
-		<link rel="stylesheet" href="admin/css/reset.css"> <!-- CSS reset -->
-		<link rel="stylesheet" href="admin/css/style.css">
-		<link rel="stylesheet" href="admin/css/site_info_css.css">		<!-- Gem style -->
+		<link rel="stylesheet" href="admin_home/css/reset.css"> <!-- CSS reset -->
+		<link rel="stylesheet" href="admin_home/css/style.css">
+		<link rel="stylesheet" href="admin_home/css/site_info_css.css">		<!-- Gem style -->
 		<script src="admin/js/modernizr.js"></script> <!-- Modernizr -->
-		<script type="text/javascript" src="admin/js/jquery.cycle.all.js"></script> 
+		<script type="text/javascript" src="admin_home/js/jquery.cycle.all.js"></script> 
 
+		<script>
+		$(document).ready(function(){
+			$('a').click(function () {
+				var divname= this.name;
+				$("#"+divname).show("slow").siblings().hide('slow');
+				  
+		   });
+		});
+		</script> 
+		
 		<title>Converge: Contractor's group</title>
 			  
 	</head>
@@ -26,29 +36,39 @@
 		</div>
 		<div class="buttons">
 			<ul align="right">
-			<li><a class="cd-signin" href="index.html">Log Out</a></li>
+			<li><a class="cd-signin" href="logout.php">Log Out</a></li>
 			</ul>
 		</div>
 		</nav>
-	</div>	
-	<div class="one">
-		
 	</div>
+<div class="one"></div>	
 	<div class="two">
 		<div class="attadmin">
 			<ul>
 			<li><a href="admin_contractor_addinfo.php"><div class="cwork">Add Site Information</div></a></li>
-			<li><a href="admin_contractor_updateinfo.php"><div class="cwork">Update site information</div></a></li>
-			<li><a href="search_contractor.php"><div class="cwork">Search for contracor</div></a></li>
+			<li><a href="#" name="search_site"><div class="cwork">Update site information</div></a></li>
+			<li><a href="#" name="search_contractor"> <div class="cwork">Search for contractor</div></a></li>
 		</div>
-		<br>
+	</div>
+	
+	<div >
+	<div id="search_contractor" style="display:none">
 		Search for contractor :: 
-		<form action="<?php echo $_SERVER['PHP_SELF'];?>"  method="post" enctype="multipart/form-data">
-		<!--<form action=""  method="POST" class="search-form frame inbtn rlarge">-->
+		<form action=""  method="post" class="search-form frame inbtn rlarge">
 			<input type="text" name="c_email" class="search-input" placeholder="Search for Contractor .." />
 			<input class="search-btn" type="submit" name="search" value="Go" />        
 		</form>
 	</div>
+	<div id="search_site" style="display:none">
+	Search For site :: 
+		<form action=""  method="post" class="search-form frame inbtn rlarge">
+			<input type="text" name="site" class="search-input" placeholder="Search by site name.." />
+			<input class="search-btn" type="submit" name="sitesearch" value="Go" />        
+		</form>
+	</div>
+	
+	</div>
+	
 	<footer class="footer-distributed">
 		<div class="footer-left">
 			<p class="footer-links" align="right">
@@ -93,6 +113,29 @@ if(isset($_POST["search"]))
 				 else
 					 echo '<script> alert("Invalid Contractor Email Entered. Enter Again");</script>';
 	            }
+    }
+	if(isset($_POST["sitesearch"]))
+    {
+		$site_name=$_POST['site'];
+		$_SESSION['site_name']=$site_name;
+		
+           if( empty($site_name))
+               {
+                  echo "<script>alert( 'Please provide site name !' ); </script>";
+               }
+	       else
+	          {    
+		         $query=mysql_query("SELECT * FROM project WHERE P_NAME='$site_name'") or die("Invalid Query".mysql_error());
+		         $row=mysql_fetch_array($query);
+		         $login_session=$row['site_name'];
+		         if(mysql_num_rows($query)!=0)
+				 {
+		           if(!isset($login_session))
+			          header("Location:update_site_info.php");
+				 }
+				 else
+					 echo '<script> alert("Invalid Site Name Enter Again");</script>';
+	           }
     }
 ?>
 

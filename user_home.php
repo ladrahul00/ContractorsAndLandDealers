@@ -11,9 +11,9 @@ include('lock.php');
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 
 		<link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
-		<link rel="stylesheet" href="css/reset.css"> <!-- CSS reset -->
-		<link rel="stylesheet" href="css/style.css"> <!-- Gem style -->
-		<script src="js/modernizr.js"></script> <!-- Modernizr -->
+		<link rel="stylesheet" href="user_home/css/reset.css"> <!-- CSS reset -->
+		<link rel="stylesheet" href="user_home/css/style.css"> <!-- Gem style -->
+		<script src="user_home/js/modernizr.js"></script> <!-- Modernizr -->
 		<title>Converge: Contractor's group</title>
 	</head>
 	<body>
@@ -29,8 +29,8 @@ include('lock.php');
 	<div class="nav-bar">
 		<nav class="main-nav">
 		<ul align="right">
-		<li><label class="greet">Hii <?php echo $login_session; ?></label></li>
-		<li><a class="cd-signup" href="index.html">Log Out</a></li>
+		<li><label class="greet">Hii <?php echo $_SESSION['USERNAME']; ?></label></li>
+		<li><a class="cd-signup" href="logout.php">Log Out</a></li>
 		</ul>
 		</nav>
 	</div>

@@ -1,8 +1,7 @@
 <?php
-
 include('lock.php');
 
-$site_id=$_GET['baby'];
+$site_id=$_GET['pid'];
 $ses_sql=mysqli_query($dbc,"SELECT * FROM project WHERE PROJECT_ID='$site_id'");
 
 $row=mysqli_fetch_array($ses_sql,MYSQLI_ASSOC);;
@@ -14,6 +13,8 @@ $cstatus=$row['STATUS'];
 $cemail=$row['C_EMAIL'];
 $_SESSION['site_id']=$row['PROJECT_ID'];
 $resultask=mysqli_query($dbc,"SELECT * FROM Q_A WHERE PROJECT_ID='$site_id'");
+
+$review_result = mysqli_query($dbc, "SELECT * FROM REVIEWS WHERE PROJECT_ID='$site_id'");
 
 ?>
 
@@ -50,13 +51,15 @@ $resultask=mysqli_query($dbc,"SELECT * FROM Q_A WHERE PROJECT_ID='$site_id'");
 		<div class="nav-bar">
 		<nav class="main-nav">
 		<div class="greeting">
-			Hello <?php echo $login_session; ?>
+			Hello <?php echo $_SESSION['USERNAME']; ?>
 		</div>
+		<?php if($_SESSION['USERNAME']!="GUEST"){	?>
 		<div class="buttons">
 			<ul align="right">
-			<li><a class="cd-signin" href="index.html">Log Out</a></li>
+			<li><a class="cd-signin" href="logout.php">Log Out</a></li>
 			</ul>
 		</div>
+		<?php }  ?>
 		</nav>
 	</div>
 	
@@ -97,15 +100,48 @@ $resultask=mysqli_query($dbc,"SELECT * FROM Q_A WHERE PROJECT_ID='$site_id'");
 		</div>
 		<?php
 		}
+		if($_SESSION['USERNAME']!="GUEST"){
 		?>
 		<div class="Ask_button">
-		<form action=""  method="post" enctype="multipart/form-data">
-		<input type="text" class="writeque" name="question">
-		<input type="submit" class="askone" value="Ask_Question" name="askbutton">
-		</form>
+			<form action=""  method="post" enctype="multipart/form-data">
+			<textarea class="writeque" name="question"></textarea>
+			<input type="submit" class="askone" value="Ask_Question" name="askbutton">
+			</form>
+		</div>
+		<?php
+			}
+		?>
 	</div>
+	<br/><br/>
+	<div class="qandax">
+		<div class="review">REVIEWS : <?php echo $review_result->num_rows; ?></div> 
+		<?php
+			while($rowu=$review_result->fetch_assoc()){
+		?>
+		<div class="comments">
+			 <?php 
+			 $uemail = $rowu['U_EMAIL'];
+			 $uname_result = mysqli_query($dbc, "SELECT * FROM users WHERE EMAIL='$uemail'");
+			 $rowusertab = $uname_result->fetch_assoc();
+			 echo "User Name :: ".$rowusertab["USERNAME"];
+			 echo "<br/>User Review :: ".$rowu["REVIEW"]; 
+			 ?>
+		</div>
+		<?php
+		}
+		if($_SESSION['USERNAME']!="GUEST"){
+		?>
+		<div class="Comment_button">
+			<form action=""  method="post" enctype="multipart/form-data">
+				<textarea class="writeque" name="comment"></textarea>
+				<input type="submit" class="write_one" value="Type_Comment" name="comment_button">
+			</form>
+		</div>
+		<?php
+		}
+		?>
 	</div>
-
+		
 </body>
 </html>
 
@@ -114,13 +150,11 @@ $resultask=mysqli_query($dbc,"SELECT * FROM Q_A WHERE PROJECT_ID='$site_id'");
 	if(isset($_POST['askbutton'])){
 		$que=$_POST['question'];
 		$ans="";
-		$q="INSERT INTO q_a (PROJECT_ID, QUESTION, ANSWER, U_EMAIL) VALUES (?, ?, ?, ?)"or die ("Invalid Query".mysql_error());
+		$q="INSERT INTO q_a (PROJECT_ID, QUESTION, ANSWER, U_EMAIL) VALUES (?, ?, ?, ?)";
 		$stmt=mysqli_prepare($dbc,$q);
 		mysqli_stmt_bind_param($stmt, "isss", $siteid, $que, $ans, $login_email);
 		$siteid=$_SESSION['site_id'];
 		mysqli_stmt_execute($stmt);	
-		
-	
 
 		$ar = mysqli_stmt_affected_rows($stmt);
 		if($ar){
@@ -129,6 +163,23 @@ $resultask=mysqli_query($dbc,"SELECT * FROM Q_A WHERE PROJECT_ID='$site_id'");
 		}
 		else{
 			echo "<script>alert('Alert question Not entered ')</script>";
+		}
+	}
+	
+	if(isset($_POST['comment_button'])){
+		$rev = $_POST['comment'];
+		echo $rev;
+		$q2 = "INSERT INTO REVIEWS(PROJECT_ID, U_EMAIL, REVIEW) VALUES(?,?,?)";
+		$stmt2=mysqli_prepare($dbc,$q2);
+		mysqli_stmt_bind_param($stmt2, "iss", $siteid, $_SESSION['email'], $rev);
+		$siteid=$_SESSION['site_id'];
+		mysqli_stmt_execute($stmt2);	
+		$ar = mysqli_stmt_affected_rows($stmt2);
+		if($ar){
+			echo "<script>alert('comment entered ')</script>";
+		}
+		else{
+			echo "<script>alert('Alert comment Not entered ')</script>";
 		}
 	}
 ?>

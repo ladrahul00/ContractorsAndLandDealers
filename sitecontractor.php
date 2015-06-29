@@ -1,11 +1,8 @@
 <?php
-//session_start();
+
 include('lock.php');
-//include('searchresult.php');
-//include('contractor_profile.php');
 
-$site_id=$_GET['baby'];
-
+$site_id=$_GET['pid'];
 $ses_sql=mysqli_query($dbc,"SELECT * FROM project WHERE PROJECT_ID='$site_id'");
 
 $row=mysqli_fetch_array($ses_sql,MYSQLI_ASSOC);;
@@ -15,6 +12,7 @@ $dos=$row['START'];
 $bhk=$row['BHK'];
 $cstatus=$row['STATUS'];
 $cemail=$row['C_EMAIL'];
+$_SESSION['site_id']=$row['PROJECT_ID'];
 $resultask=mysqli_query($dbc,"SELECT * FROM Q_A WHERE PROJECT_ID='$site_id'");
 
 ?>
@@ -27,10 +25,10 @@ $resultask=mysqli_query($dbc,"SELECT * FROM Q_A WHERE PROJECT_ID='$site_id'");
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 
 		<link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
-		<link rel="stylesheet" href="site/css/reset.css"> <!-- CSS reset -->
-		<link rel="stylesheet" href="site/css/style.css"> <!-- Gem style -->
-		<script src="js/modernizr.js"></script> <!-- Modernizr -->
-		<script type="text/javascript" src="site/js/jquery.cycle.all.js"></script> 
+		<link rel="stylesheet" href="sitecontractor/css/reset.css"> <!-- CSS reset -->
+		<link rel="stylesheet" href="sitecontractor/css/style.css"> <!-- Gem style -->
+		<script src="sitecontractor/js/modernizr.js"></script> <!-- Modernizr -->
+		<script type="text/javascript" src="sitecontractor/js/jquery.cycle.all.js"></script> 
 
 		<title>Converge: Contractor's group</title>
 		<script language="javascript">
@@ -46,17 +44,17 @@ $resultask=mysqli_query($dbc,"SELECT * FROM Q_A WHERE PROJECT_ID='$site_id'");
 	</head>
 <body>
 	<header role="converge">
-	<div align="left"><a href="contractor_profile.php"><h1 class="toptitle">CONVERGE</h1><!img src="logo.png" id="main-logo"></a></div>
+	<div align="left"><a href="index.html"><h1 class="toptitle">CONVERGE</h1><!img src="logo.png" id="main-logo"></a></div>
 	</header>
 	
 		<div class="nav-bar">
 		<nav class="main-nav">
 		<div class="greeting">
-			Hello Contractor <?php echo $login_session; ?>
+			Hello <?php echo $_SESSION['USERNAME']; ?>
 		</div>
 		<div class="buttons">
 			<ul align="right">
-			<li><a class="cd-signin" href="index.html">Log Out</a></li>
+			<li><a class="cd-signin" href="logout.php">Log Out</a></li>
 			</ul>
 		</div>
 		</nav>
@@ -92,20 +90,25 @@ $resultask=mysqli_query($dbc,"SELECT * FROM Q_A WHERE PROJECT_ID='$site_id'");
 			while($row=$resultask->fetch_assoc()){
 		?>
 		<div class="question">
-			QUE: <?php echo $row["QUESTION"]; ?>
+			QUE: <?php echo $row["QUESTION"]; 
+			?>
 		</div>
+		<form action=""  method="post" enctype="multipart/form-data">
 		<div class="answer">
-			ANS: <?php echo $row["ANSWER"]; ?>
+			ANS: <?php  
+				if($row["ANSWER"]==null){
+					echo"<textarea name='answer'></textarea>";
+					
+					echo"<input type='submit' name='AnsQuestion' value='Answer'>";
+				}
+				else{echo $row["ANSWER"];
+				}
+			?>
 		</div>
+		</form>
 		<?php
 		}
 		?>
-		<div class="Ask_button">
-		<form action="<?php echo $_SERVER['PHP_SELF'];?>"  method="post" enctype="multipart/form-data">
-		<input type="text" class="writeque" name="question">
-		<input type="submit" class="askone" value="Ask_Question" name="askbutton">
-		</form>
-	</div>
 	</div>
 
 </body>
@@ -113,15 +116,13 @@ $resultask=mysqli_query($dbc,"SELECT * FROM Q_A WHERE PROJECT_ID='$site_id'");
 
 <?php
 
-	mysql_connect('localhost','root','')OR die('Could not connect to MySQL: ' .mysqli_connect_error());
-	mysql_select_db('jarvis');
-	if(isset($_POST['askbutton'])){
-		$que=$_POST['question'];
-		//$q="INSERT INTO Q_A (PROJECT_ID, QUESTION, C_EMAIL) VALUES ('$site_id','$que','$cemail')" or die ("Invalid Query".mysql_error());
-		$q=mysql_query("INSERT INTO q_a (PROJECT_ID,QUESTION,C_EMAIL)VALUES('$site_id','$que','$login_email')") or die ("Invalid Query".mysql_error());
+	if(isset($_POST['AnsQuestion'])){
+		$ans=$_POST['answer'];
+
+		$q=mysql_query("UPDATE q_a SET ANSWER='{$ans}' WHERE QUESTION='$question'") or die ("Invalid Query".mysql_error());
 
 		if($res){
-			header("Location:site.php?baby='$site_id'");
+			header("Location:site.php?pid='$site_id'");
 		}
 		else{
 			echo "<script>alert('Alert question Not entered ')</script>";
