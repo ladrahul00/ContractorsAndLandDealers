@@ -41,7 +41,7 @@
 		</div>
 		</nav>
 	</div>
-<div class="one"></div>	
+	<div class="one"></div>	
 	<div class="two">
 		<div class="attadmin">
 			<ul>
@@ -51,39 +51,45 @@
 		</div>
 	</div>
 	
-	<div >
-	<div id="search_contractor" style="display:none">
-		Search for contractor :: 
-		<form action=""  method="post" class="search-form frame inbtn rlarge">
-			<input type="text" name="c_email" class="search-input" placeholder="Search for Contractor .." />
-			<input class="search-btn" type="submit" name="search" value="Go" />        
-		</form>
-	</div>
-	<div id="search_site" style="display:none">
-	Search For site :: 
-		<form action=""  method="post" class="search-form frame inbtn rlarge">
-			<input type="text" name="site" class="search-input" placeholder="Search by site name.." />
-			<input class="search-btn" type="submit" name="sitesearch" value="Go" />        
-		</form>
-	</div>
 	
+	<div class="search">
+		<div id="search_contractor" style="display:none">
+		<table align="center">
+		<tr><b>SEARCH FOR CONTRACTOR</b></br></br></tr>
+		<tr><th>
+			Contractor Email :&nbsp&nbsp</th>
+			<form action=""  method="post" class="search-form frame inbtn rlarge">
+				<th><input type="text" name="c_email" class="search-input" placeholder="Search for Contractor .." /></th>
+				<th><input class="search-btn" type="submit" name="search" value="Go" />  </th></tr>      
+			</form>
+		</table>
+		</div>
+		<div id="search_site" style="display:none">
+		<table align="center">
+		<tr><b>SEARCH FOR SITE</b></br></br></tr>
+		<tr><th>Site Name :&nbsp&nbsp</th>
+			<form action=""  method="post" class="search-form frame inbtn rlarge">
+				<th><input type="text" name="site" class="search-input" placeholder="Search by site name .." /></th>
+				<th><input class="search-btn" type="submit" name="sitesearch" value="Go" /></th></tr>     
+			</form>
+		</table>
+		</div>			
 	</div>
-	
-	<footer class="footer-distributed">
+
+ 	<footer class="footer-distributed" >
 		<div class="footer-left">
 			<p class="footer-links" align="right">
 					<a href="index.html">Home</a>
-					·	
-					<a href="#">Advertising</a>
 					·
 					<a href="try.php">Contact</a>
 					·
 					<a href="aboutus.html">About us</a>
 			</p>
+
 			<p>Company Name &copy; 2015</p>
 		</div>
 
-		</footer>
+	</footer>
  
 </body>
 </html>
@@ -104,11 +110,12 @@ if(isset($_POST["search"]))
 	           {    
 		         $query=mysql_query("SELECT * FROM users WHERE EMAIL='$c_email'") or die("Invalid Query".mysql_error());
 		         $row=mysql_fetch_array($query);
-		         $login_email=$row['EMAIL'];
+		         $_SESSION['email']=$row['EMAIL'];
+				 $_SESSION['USERNAME']="admin";
 		         if(mysql_num_rows($query)!=0)
 					{
-						if(isset($login_email))
-							header("Location:admin_contractor_profile.php");
+						if(isset($_SESSION['email']))
+							header("Location:contractor_profile.php");
 				    }
 				 else
 					 echo '<script> alert("Invalid Contractor Email Entered. Enter Again");</script>';

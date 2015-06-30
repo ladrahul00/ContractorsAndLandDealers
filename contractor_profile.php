@@ -34,7 +34,7 @@ include('lock.php');
 	<div class="nav-bar">
 		<nav class="main-nav">
 		<div class="greeting">
-			Hello contractor <?php echo $_SESSION['USERNAME']; ?>
+			Hello <?php echo $_SESSION['USERNAME']; ?>
 		</div>
 		<div class="buttons">
 			<ul>
@@ -52,7 +52,10 @@ include('lock.php');
 		while($row1=$result1->fetch_assoc())
 		{ 
 			$pid=$row1['PROJECT_ID'];
-		echo '<a href="sitecontractor.php?pid=',urlencode($pid),'">';
+		if($_SESSION['USERNAME']=="admin")
+			echo '<a href="site.php?pid=',urlencode($pid),'">';
+		else
+			echo '<a href="sitecontractor.php?pid=',urlencode($pid),'">';
 		?>
 		</label>
 		<div class="completed_work">
@@ -88,7 +91,10 @@ include('lock.php');
 		while($row2=$result2->fetch_assoc())
 		{
 		$pid=$row2['PROJECT_ID'];
-		echo '<a href="sitecontractor.php?pid=',urlencode($pid),'">';
+		if($_SESSION['USERNAME']=="admin")
+			echo '<a href="site.php?pid=',urlencode($pid),'">';
+		else
+			echo '<a href="sitecontractor.php?pid=',urlencode($pid),'">';
 		?>
 		</label>
 		<div class="previous_work">
