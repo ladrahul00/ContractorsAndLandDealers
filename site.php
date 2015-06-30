@@ -104,8 +104,8 @@ $review_result = mysqli_query($dbc, "SELECT * FROM REVIEWS WHERE PROJECT_ID='$si
 		?>
 		<div class="Ask_button">
 			<form action=""  method="post" enctype="multipart/form-data">
-			<textarea class="writeque" name="question"></textarea>
-			<input type="submit" class="askone" value="Ask_Question" name="askbutton">
+			<div class="x"><textarea class="writeque" name="question"></textarea></div>
+			<div class="y"><input type="submit" class="askone" value="Ask_Question" name="askbutton"></div>
 			</form>
 		</div>
 		<?php
@@ -114,7 +114,7 @@ $review_result = mysqli_query($dbc, "SELECT * FROM REVIEWS WHERE PROJECT_ID='$si
 	</div>
 	<br/><br/>
 	<div class="qandax">
-		<div class="review">REVIEWS : <?php echo $review_result->num_rows; ?></div> 
+		<div class="queries">REVIEWS : <?php echo $review_result->num_rows; ?></div> 
 		<?php
 			while($rowu=$review_result->fetch_assoc()){
 		?>
@@ -123,8 +123,8 @@ $review_result = mysqli_query($dbc, "SELECT * FROM REVIEWS WHERE PROJECT_ID='$si
 			 $uemail = $rowu['U_EMAIL'];
 			 $uname_result = mysqli_query($dbc, "SELECT * FROM users WHERE EMAIL='$uemail'");
 			 $rowusertab = $uname_result->fetch_assoc();
-			 echo "User Name :: ".$rowusertab["USERNAME"];
-			 echo "<br/>User Review :: ".$rowu["REVIEW"]; 
+			 echo "<div class='question'>User : ".$rowusertab["USERNAME"]."</div>";
+			 echo "<div class='answer'>Review :: ".$rowu["REVIEW"]."</div>"; 
 			 ?>
 		</div>
 		<?php
@@ -133,14 +133,33 @@ $review_result = mysqli_query($dbc, "SELECT * FROM REVIEWS WHERE PROJECT_ID='$si
 		?>
 		<div class="Comment_button">
 			<form action=""  method="post" enctype="multipart/form-data">
-				<textarea class="writeque" name="comment"></textarea>
-				<input type="submit" class="write_one" value="Type_Comment" name="comment_button">
+				<div class="x"><textarea class="writeque" name="comment"></textarea></div>
+				<div class="yy"><input type="submit" class="write_one" value="Type_Comment" name="comment_button"></div>
 			</form>
 		</div>
 		<?php
 		}
 		?>
 	</div>
+	
+		<footer class="footer-distributed">
+		<div class="footer-left">
+
+			<p class="footer-links" align="right">
+					<a href="#">Home</a>
+					·	
+					<a href="#">Advertising</a>
+					·
+					<a href="try.php">Contact</a>
+					·
+					<a href="aboutus.html">About us</a>
+
+			</p>
+
+			<p>Company Name &copy; 2015</p>
+		</div>
+
+		</footer>
 		
 </body>
 </html>

@@ -1,10 +1,6 @@
 <?php
 include('lock.php');
 
-//session_start();
-// $dbc will contain a resource link to the database
-// @ keeps the error from showing in the browser
-//session_start();
 
 	$status1 = "completed";
 	$status2 = "current";
@@ -99,7 +95,7 @@ include('lock.php');
 			<div class="pwork">
 				<div class="baseImage">
 					<?php
-						echo '<img src="data:image;base64,'.$row1["IMAGE1"].'">';
+						echo '<img src="data:image;base64,'.$row2["IMAGE1"].'">';
 					?>
 				</div>
 				<div class="imgDescription">

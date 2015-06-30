@@ -14,6 +14,8 @@ $cstatus=$row['STATUS'];
 $cemail=$row['C_EMAIL'];
 $_SESSION['site_id']=$row['PROJECT_ID'];
 $resultask=mysqli_query($dbc,"SELECT * FROM Q_A WHERE PROJECT_ID='$site_id'");
+$review_result = mysqli_query($dbc, "SELECT * FROM REVIEWS WHERE PROJECT_ID='$site_id'");
+
 
 ?>
 
@@ -97,11 +99,22 @@ $resultask=mysqli_query($dbc,"SELECT * FROM Q_A WHERE PROJECT_ID='$site_id'");
 		<div class="answer">
 			ANS: <?php  
 				if($row["ANSWER"]==null){
-					echo"<textarea name='answer'></textarea>";
-					
-					echo"<input type='submit' name='AnsQuestion' value='Answer'>";
+					if(isset($_GET['qid'])){
+						$ques = $_GET['qid'];
+						if($ques==$row["QUESTION"]){
+							echo"<div class='xx'><textarea name='answer'></textarea></div>";
+							echo"<div class='y'><input type='submit' name='AnsQuestion' value='Answer'></div>";
+						}
+						else{
+							echo'<a href="sitecontractor.php?qid='.$row["QUESTION"].'&pid='.$site_id.'">Answer</a>';
+						}
+					}
+					else{
+							echo'<a href="sitecontractor.php?qid='.$row["QUESTION"].'&pid='.$site_id.'">Answer</a>';
+					}
 				}
-				else{echo $row["ANSWER"];
+				else{
+					echo $row["ANSWER"];
 				}
 			?>
 		</div>
@@ -110,23 +123,58 @@ $resultask=mysqli_query($dbc,"SELECT * FROM Q_A WHERE PROJECT_ID='$site_id'");
 		}
 		?>
 	</div>
+	
+		<div class="qandax">
+		<div class="queries">REVIEWS : <?php echo $review_result->num_rows; ?></div> 
+		<?php
+			while($rowu=$review_result->fetch_assoc()){
+		?>
+		<div class="comments">
+			 <?php 
+			 $uemail = $rowu['U_EMAIL'];
+			 $uname_result = mysqli_query($dbc, "SELECT * FROM users WHERE EMAIL='$uemail'");
+			 $rowusertab = $uname_result->fetch_assoc();
+			 echo "<div class='question'>User : ".$rowusertab["USERNAME"]."</div>";
+			 echo "<div class='answer'>Review :: ".$rowu["REVIEW"]."</div>"; 
+			 ?>
+		</div>
+		<?php
+		}
+		?>
+	</div>
+	
+	
 
+			<footer class="footer-distributed">
+		<div class="footer-left">
+
+			<p class="footer-links" align="right">
+					<a href="#">Home</a>
+					·	
+					<a href="#">Advertising</a>
+					·
+					<a href="try.php">Contact</a>
+					·
+					<a href="aboutus.html">About us</a>
+
+			</p>
+
+			<p>Company Name &copy; 2015</p>
+		</div>
+
+		</footer>
+	
 </body>
 </html>
 
 <?php
-
+	mysql_connect('localhost','root','')OR die('Could not connect to MySQL: ' .mysqli_connect_error());
+	mysql_select_db('jarvis');
 	if(isset($_POST['AnsQuestion'])){
 		$ans=$_POST['answer'];
-
-		$q=mysql_query("UPDATE q_a SET ANSWER='{$ans}' WHERE QUESTION='$question'") or die ("Invalid Query".mysql_error());
-
-		if($res){
-			header("Location:site.php?pid='$site_id'");
-		}
-		else{
-			echo "<script>alert('Alert question Not entered ')</script>";
-		}
+		$q="UPDATE q_a SET ANSWER='{$ans}' WHERE QUESTION='$ques'";
+		mysql_query($q) or die (mysql_error());
 	}
 ?>
+
 
