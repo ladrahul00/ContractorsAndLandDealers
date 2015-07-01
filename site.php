@@ -171,20 +171,20 @@ $review_result = mysqli_query($dbc, "SELECT * FROM REVIEWS WHERE PROJECT_ID='$si
 		$ans="";
 		$q="INSERT INTO q_a (PROJECT_ID, QUESTION, ANSWER, U_EMAIL) VALUES (?, ?, ?, ?)";
 		$stmt=mysqli_prepare($dbc,$q);
-		mysqli_stmt_bind_param($stmt, "isss", $siteid, $que, $ans, $login_email);
+		mysqli_stmt_bind_param($stmt, "isss", $siteid, $que, $ans, $_SESSION['email']);
 		$siteid=$_SESSION['site_id'];
 		mysqli_stmt_execute($stmt);	
 
 		$ar = mysqli_stmt_affected_rows($stmt);
 		if($ar){
 			echo "<script>alert('question entered ')</script>";
-	
+			//echo"<script>location.reload(true);</script>";
 		}
 		else{
-			echo "<script>alert('Alert question Not entered ')</script>";
+			//echo "<script>alert('Alert question Not entered ')</script>";
 		}
+		
 	}
-	
 	if(isset($_POST['comment_button'])){
 		$rev = $_POST['comment'];
 		echo $rev;
@@ -196,10 +196,12 @@ $review_result = mysqli_query($dbc, "SELECT * FROM REVIEWS WHERE PROJECT_ID='$si
 		$ar = mysqli_stmt_affected_rows($stmt2);
 		if($ar){
 			echo "<script>alert('comment entered ')</script>";
+			//echo"<script>location.reload(true);</script>";
 		}
 		else{
-			echo "<script>alert('Alert comment Not entered ')</script>";
+			//echo "<script>alert('Alert comment Not entered ')</script>";
 		}
-	}
+	}	
+	
 ?>
 

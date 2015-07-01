@@ -174,6 +174,7 @@ $review_result = mysqli_query($dbc, "SELECT * FROM REVIEWS WHERE PROJECT_ID='$si
 		$ans=$_POST['answer'];
 		$q="UPDATE q_a SET ANSWER='{$ans}' WHERE QUESTION='$ques'";
 		mysql_query($q) or die (mysql_error());
+	//	echo"<script>location.reload();</script>";
 	}
 ?>
 
