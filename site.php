@@ -147,8 +147,6 @@ $review_result = mysqli_query($dbc, "SELECT * FROM REVIEWS WHERE PROJECT_ID='$si
 
 			<p class="footer-links" align="right">
 					<a href="#">Home</a>
-					·	
-					<a href="#">Advertising</a>
 					·
 					<a href="try.php">Contact</a>
 					·
