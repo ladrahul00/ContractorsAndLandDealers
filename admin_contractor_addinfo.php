@@ -16,7 +16,7 @@
 	</head>
 <body>
 	<header role="converge">
-	<div align="left"><a href="admin_home.php"><h1 class="toptitle">CONVERGE</h1><!img src="logo.png" id="main-logo"></a></div>
+	<div align="left"><a href="#"><h1 class="toptitle">CONVERGE</h1><!img src="logo.png" id="main-logo"></a></div>
 	</header>
 		<div class="nav-bar">
 		<nav class="main-nav">

@@ -124,9 +124,12 @@ include('lock.php');
 	<footer class="footer-distributed">
 		<div class="footer-left">
 			<p class="footer-links" align="right">
-					<a href="index.html">Home</a>
-					·	
-					<a href="#">Advertising</a>
+			      <?php  if($_SESSION['USERNAME']=="admin")
+				           echo "<a href='admin_home.php'>";
+						else
+					       echo"<a href='index.html'>";
+						   
+						   ?>  Home</a>
 					·
 					<a href="try.php">Contact</a>
 					·
