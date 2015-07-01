@@ -45,7 +45,7 @@ $review_result = mysqli_query($dbc, "SELECT * FROM REVIEWS WHERE PROJECT_ID='$si
 	</head>
 <body>
 	<header role="converge">
-	<div align="left"><a href="index.html"><h1 class="toptitle">CONVERGE</h1><!img src="logo.png" id="main-logo"></a></div>
+	<div align="left"><a href="#"><h1 class="toptitle">CONVERGE</h1><!img src="logo.png" id="main-logo"></a></div>
 	</header>
 	
 		<div class="nav-bar">
@@ -146,7 +146,12 @@ $review_result = mysqli_query($dbc, "SELECT * FROM REVIEWS WHERE PROJECT_ID='$si
 		<div class="footer-left">
 
 			<p class="footer-links" align="right">
-					<a href="#">Home</a>
+			<?php  if($_SESSION['USERNAME']=="admin")
+				           echo "<a href='admin_home.php'>";
+						else
+					       echo"<a href='index.html'>";
+						   
+						   ?>  Home</a>
 					·
 					<a href="try.php">Contact</a>
 					·
@@ -174,13 +179,13 @@ $review_result = mysqli_query($dbc, "SELECT * FROM REVIEWS WHERE PROJECT_ID='$si
 		mysqli_stmt_execute($stmt);	
 
 		$ar = mysqli_stmt_affected_rows($stmt);
-		if($ar){
+		/*if($ar){
 			echo "<script>alert('question entered ')</script>";
 	
 		}
 		else{
 			echo "<script>alert('Alert question Not entered ')</script>";
-		}
+		}*/
 	}
 	
 	if(isset($_POST['comment_button'])){
@@ -192,12 +197,12 @@ $review_result = mysqli_query($dbc, "SELECT * FROM REVIEWS WHERE PROJECT_ID='$si
 		$siteid=$_SESSION['site_id'];
 		mysqli_stmt_execute($stmt2);	
 		$ar = mysqli_stmt_affected_rows($stmt2);
-		if($ar){
+		/*if($ar){
 			echo "<script>alert('comment entered ')</script>";
 		}
 		else{
 			echo "<script>alert('Alert comment Not entered ')</script>";
-		}
+		}*/
 	}
 ?>
 
