@@ -186,9 +186,6 @@ $review_result = mysqli_query($dbc, "SELECT * FROM REVIEWS WHERE PROJECT_ID='$si
 		else{
 			//echo "<script>alert('Alert question Not entered ')</script>";
 		}
-		
-			echo "<script>alert('Alert question Not entered ')</script>";
-		}
 	}
 	if(isset($_POST['comment_button'])){
 		$rev = $_POST['comment'];
@@ -209,9 +206,6 @@ $review_result = mysqli_query($dbc, "SELECT * FROM REVIEWS WHERE PROJECT_ID='$si
 		}
 	}	
 	
-			echo "<script>alert('Alert comment Not entered ')</script>";
-		}
-	}
 
 ?>
 
